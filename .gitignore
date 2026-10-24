@@ -1,0 +1,37 @@
+# Corpus and run outputs (not versioned)
+/data/
+/outputs/
+prompts.txt
+prompts.csv
+
+# Checkpoints: only the released one is versioned (Git LFS, see .gitattributes)
+/checkpoints/*
+!/checkpoints/README.md
+!/checkpoints/ecapa_tdnn_vietnam_celeb.model
+
+# Local working directories
+/assets/
+/work/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.eggs/
+.venv/
+venv/
+
+# Tools
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.ipynb_checkpoints/
+
+# Editors and operating systems
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db

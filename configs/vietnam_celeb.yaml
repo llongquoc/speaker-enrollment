@@ -1,0 +1,54 @@
+# Evaluation protocol of
+#   Le & Ngo, "Data-Centric Optimization of Enrollment Selection in Speaker Identification", ICPRAM 2025
+#   Le & Ngo, "Phoneme-Based Optimization of Enrollment Selection for Speaker Identification", PRICAI 2025
+# on Vietnam-Celeb.  Paths are relative to the repository root.
+
+corpus:
+  path: data/full-dataset.zip          # Vietnam-Celeb distribution archive or its extracted directory
+  audio_subdir: data                   # audio under <audio_subdir>/<speaker>/<file>.wav
+
+protocol:
+  test_utterances: protocols/vietnam_celeb/test_utterances.txt          # 57 speakers, 4,154 utterances
+  validation_speakers: protocols/vietnam_celeb/validation_speakers.txt  # 50 speakers unseen in training
+  test_trials: protocols/vietnam_celeb/test_trials.txt.gz               # verification trials (reference EER)
+  transcripts: protocols/vietnam_celeb/test_transcripts.json            # verified transcripts (PRICAI 2025)
+  relabel: null                        # optional CSV utterance,speaker with corrected labels
+
+model:
+  checkpoint: checkpoints/ecapa_tdnn_vietnam_celeb.model
+  # SHA-256 of the released checkpoint, verified before use; null to evaluate another model
+  sha256: af01bb9dcb87a42e820aa7679d6cc6d3617b3e8f10be40b10a05f1117bdd8149
+  device: auto                         # auto (CUDA > MPS > CPU) | cpu | cuda | mps
+  max_seconds: null                    # whole utterances
+
+threshold:
+  rule: eer                            # eer: validation equal-error-rate point (papers) | far | fixed
+  target_far: null                     # for rule: far, e.g. 0.01
+  value: null                          # for rule: fixed
+
+identification:
+  scoring: mean                        # mean cosine to the enrolled utterances | centroid | max
+  reject: true                         # queries scoring below the threshold are rejected as unknown
+
+similarity_selection:                  # ICPRAM 2025
+  candidate_rule: clique               # clique (high-similarity cluster) | mean | all
+  max_size: 10                         # enrollment sizes k = 1..max_size
+  repetitions: 30                      # random draws per configuration and k
+  seed: 0
+
+phoneme_selection:                     # PRICAI 2025
+  g2p: viphoneme                       # viphoneme (+ compound-vowel fix) | rules (built-in)
+  compound_vowels: true
+  tones: separate                      # separate | attached | none
+  quality_check: pairwise              # pairwise | mean
+
+analysis:                              # operating-point and design-choice analysis
+  thresholds: [0.10, 0.12, 0.14, 0.16, 0.18, 0.20, 0.22, 0.24, 0.26, 0.28, 0.30,
+               0.32, 0.34, 0.36, 0.38, 0.40, 0.42, 0.44, 0.46, 0.48, 0.50]
+  candidate_rules: [clique, mean, all]
+  scorings: [mean, centroid, max]
+  quality_checks: [pairwise, mean]
+  repetitions: 10
+  report_size: 5
+
+output_dir: outputs/vietnam_celeb

@@ -1,0 +1,2 @@
+# The speaker-encoder checkpoint is stored with Git LFS (https://git-lfs.com).
+checkpoints/*.model filter=lfs diff=lfs merge=lfs -text

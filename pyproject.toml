@@ -1,0 +1,73 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "speaker-enrollment"
+version = "1.0.0"
+description = "Enrollment selection for speaker identification: official implementation of the ICPRAM 2025 and PRICAI 2025 papers"
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{ name = "Long-Quoc Le" }, { name = "Minh-Nhut Ngo" }]
+requires-python = ">=3.10"
+keywords = ["speaker identification", "speaker enrollment", "ECAPA-TDNN", "phoneme coverage", "Vietnamese"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Operating System :: OS Independent",
+    "Topic :: Multimedia :: Sound/Audio :: Speech",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+dependencies = [
+    "numpy>=1.22",
+    "scipy>=1.8",
+    "pandas>=2.0",
+    "matplotlib>=3.5",
+    "pyyaml>=6.0",
+    "soundfile>=0.12",
+    "torch>=2.0",
+]
+
+[project.optional-dependencies]
+# Transcription of new data with PhoWhisper (the released protocol ships verified transcripts).
+asr = ["transformers>=4.36"]
+# torchaudio is optional for the tests (front-end equivalence check); install it with the matching torch build.
+dev = ["pytest>=7", "ruff>=0.16", "mypy>=1.10", "scikit-learn>=1.2"]
+
+[project.urls]
+Repository = "https://github.com/llongquoc/speaker-enrollment"
+"ICPRAM 2025 paper" = "https://doi.org/10.5220/0013256800003905"
+"PRICAI 2025 paper" = "https://doi.org/10.1007/978-981-95-7075-1_34"
+
+[project.scripts]
+speaker-enrollment = "speaker_enrollment.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+speaker_enrollment = ["resources/*.txt"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+
+[tool.ruff]
+line-length = 120
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP"]
+ignore = ["E741", "B905"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["speaker_enrollment"]
+
+[tool.mypy]
+python_version = "3.10"
+ignore_missing_imports = true
+warn_unused_ignores = true
