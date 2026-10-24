@@ -1,0 +1,50 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite the papers below."
+title: "speaker-enrollment: enrollment selection for speaker identification"
+type: software
+version: 1.0.0
+date-released: 2026-10-24
+license: MIT
+repository-code: "https://github.com/llongquoc/speaker-enrollment"
+keywords:
+  - speaker identification
+  - speaker enrollment
+  - enrollment selection
+  - phoneme coverage
+  - ECAPA-TDNN
+  - Vietnamese
+authors:
+  - family-names: Le
+    given-names: Long-Quoc
+    orcid: "https://orcid.org/0009-0007-9838-2260"
+    affiliation: "Faculty of Information Technology, University of Science, Vietnam National University, Ho Chi Minh City"
+  - family-names: Ngo
+    given-names: Minh-Nhut
+    orcid: "https://orcid.org/0009-0001-1185-2394"
+    affiliation: "Faculty of Information Technology, University of Science, Vietnam National University, Ho Chi Minh City"
+preferred-citation:
+  type: conference-paper
+  title: "Data-Centric Optimization of Enrollment Selection in Speaker Identification"
+  authors:
+    - family-names: Le
+      given-names: Long-Quoc
+    - family-names: Ngo
+      given-names: Minh-Nhut
+  collection-title: ICPRAM
+  start: 344
+  end: 351
+  year: 2025
+references:
+  - type: conference-paper
+    title: "Correction to: Phoneme-Based Optimization of Enrollment Selection for Speaker Identification"
+    authors:
+      - family-names: Le
+        given-names: Long-Quoc
+      - family-names: Ngo
+        given-names: Minh-Nhut
+    collection-title: "Pacific Rim International Conference on Artificial Intelligence"
+    publisher:
+      name: Springer
+    start: "C1"
+    end: "C1"
+    year: 2025
